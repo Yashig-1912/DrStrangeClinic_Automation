@@ -80,7 +80,34 @@ export function AppointmentForm() {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      
+      // Try to parse as JSON first, fall back to text handling
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        // If it's plain text, treat as success if response was OK
+        if (response.ok) {
+          setSubmissionStatus({
+            status: "success",
+            message: text || "Your appointment has been booked successfully.",
+          });
+          setFormData({
+            fullName: "",
+            mobileNumber: "",
+            email: "",
+            appointmentDate: undefined,
+            timeSlot: "",
+          });
+        } else {
+          setSubmissionStatus({
+            status: "error",
+            message: text || "Unable to process your request. Please try again.",
+          });
+        }
+        return;
+      }
 
       if (data.status === "success") {
         setSubmissionStatus({
