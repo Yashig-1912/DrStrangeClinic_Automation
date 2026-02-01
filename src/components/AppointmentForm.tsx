@@ -72,7 +72,7 @@ export function AppointmentForm() {
     };
 
     try {
-      const response = await fetch("https://yg1912.app.n8n.cloud/webhook/01841bd3-49c0-4929-bb70-86683d5b7d79", {
+      const response = await fetch("https://yg2708.app.n8n.cloud/webhook-test/01841bd3-49c0-4929-bb70-86683d5b7d79", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
