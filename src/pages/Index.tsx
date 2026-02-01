@@ -1,5 +1,6 @@
 import { AppointmentForm } from "@/components/AppointmentForm";
-import { Stethoscope } from "lucide-react";
+import { Stethoscope, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
@@ -42,6 +43,24 @@ const Index = () => {
           <div className="mt-6 text-center text-sm text-muted-foreground">
             <p>Clinic Hours: Monday – Saturday, 9:00 AM – 5:00 PM</p>
             <p className="mt-1">Closed on Sundays</p>
+          </div>
+
+          {/* Telegram Button */}
+          <div className="mt-6 flex justify-center">
+            <Button
+              asChild
+              variant="outline"
+              className="gap-2 bg-[#0088cc] hover:bg-[#0077b5] text-white hover:text-white border-none"
+            >
+              <a
+                href="https://t.me/YOUR_TELEGRAM_BOT"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Chat on Telegram
+              </a>
+            </Button>
           </div>
         </div>
       </main>
