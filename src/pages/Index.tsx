@@ -1,8 +1,24 @@
 import { AppointmentForm } from "@/components/AppointmentForm";
-import { Stethoscope, MessageCircle } from "lucide-react";
+import { Stethoscope, MessageCircle, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const Index = () => {
+  const [copied, setCopied] = useState(false);
+  const telegramLink = "https://t.me/Taarzanphysio_bot";
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(telegramLink);
+      setCopied(true);
+      toast.success("Link copied to clipboard!");
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error("Failed to copy link");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -46,15 +62,15 @@ const Index = () => {
             <p className="mt-1">Closed on Sundays & Public Holidays</p>
           </div>
 
-          {/* Telegram Button */}
-          <div className="mt-6 flex justify-center">
+          {/* Telegram Section */}
+          <div className="mt-6 flex flex-col items-center gap-3">
             <Button
               asChild
               variant="outline"
               className="gap-2 bg-[#0088cc] hover:bg-[#0077b5] text-white hover:text-white border-none"
             >
               <a
-                href="https://t.me/Taarzanphysio_bot"
+                href={telegramLink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -62,6 +78,30 @@ const Index = () => {
                 Chat on Telegram
               </a>
             </Button>
+            
+            {/* Copyable Link */}
+            <div className="flex items-center gap-2 px-3 py-2 bg-muted rounded-lg">
+              <a
+                href={telegramLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-primary hover:underline break-all"
+              >
+                {telegramLink}
+              </a>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 flex-shrink-0"
+                onClick={handleCopy}
+              >
+                {copied ? (
+                  <Check className="h-4 w-4 text-green-600" />
+                ) : (
+                  <Copy className="h-4 w-4 text-muted-foreground" />
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </main>
