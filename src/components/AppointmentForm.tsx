@@ -202,7 +202,7 @@ export function AppointmentForm() {
                 setFormData({ ...formData, appointmentDate: date });
                 setCalendarOpen(false);
               }}
-              disabled={(date) => date < new Date() || date.getDay() === 0}
+              disabled={(date) => date < new Date() || date.getDay() === 0 || date.getDay() === 6}
               initialFocus
               className="pointer-events-auto"
             />
