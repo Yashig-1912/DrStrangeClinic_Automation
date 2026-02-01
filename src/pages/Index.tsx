@@ -53,7 +53,7 @@ const Index = () => {
               className="gap-2 bg-[#0088cc] hover:bg-[#0077b5] text-white hover:text-white border-none"
             >
               <a
-                href="https://t.me/YOUR_TELEGRAM_BOT"
+                href="https://t.me/Taarzanphysio_bot"
                 target="_blank"
                 rel="noopener noreferrer"
               >
