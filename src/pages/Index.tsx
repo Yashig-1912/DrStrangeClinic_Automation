@@ -41,8 +41,9 @@ const Index = () => {
 
           {/* Clinic Hours Info */}
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            <p>Clinic Hours: Monday – Saturday, 9:00 AM – 5:00 PM</p>
-            <p className="mt-1">Closed on Sundays</p>
+            <p>Clinic Hours: Monday – Saturday</p>
+            <p className="mt-1">9:00 AM – 1:00 PM & 2:00 PM – 5:00 PM</p>
+            <p className="mt-1">Closed on Sundays & Public Holidays</p>
           </div>
 
           {/* Telegram Button */}
