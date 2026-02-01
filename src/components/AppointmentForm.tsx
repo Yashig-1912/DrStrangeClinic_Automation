@@ -38,8 +38,12 @@ interface FormData {
 }
 
 interface SubmissionStatus {
-  type: "success" | "error";
+  status: "success" | "conflict" | "error";
   message: string;
+  appointment_id?: string;
+  date?: string;
+  slot?: string;
+  suggested_slots?: string[];
 }
 
 export function AppointmentForm() {
@@ -60,11 +64,11 @@ export function AppointmentForm() {
     setSubmissionStatus(null);
 
     const payload = {
-      fullName: formData.fullName.trim(),
-      mobileNumber: formData.mobileNumber.trim(),
+      name: formData.fullName.trim(),
+      phone: formData.mobileNumber.trim(),
       email: formData.email.trim(),
-      appointmentDate: formData.appointmentDate ? format(formData.appointmentDate, "yyyy-MM-dd") : "",
-      timeSlot: formData.timeSlot,
+      date: formData.appointmentDate ? format(formData.appointmentDate, "yyyy-MM-dd") : "",
+      slot: formData.timeSlot,
     };
 
     try {
@@ -78,10 +82,13 @@ export function AppointmentForm() {
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (data.status === "success") {
         setSubmissionStatus({
-          type: "success",
-          message: data.message || "Appointment booked successfully! We'll send you a confirmation shortly.",
+          status: "success",
+          message: data.message,
+          appointment_id: data.appointment_id,
+          date: data.date,
+          slot: data.slot,
         });
         setFormData({
           fullName: "",
@@ -90,15 +97,21 @@ export function AppointmentForm() {
           appointmentDate: undefined,
           timeSlot: "",
         });
+      } else if (data.status === "conflict") {
+        setSubmissionStatus({
+          status: "conflict",
+          message: data.message,
+          suggested_slots: data.suggested_slots,
+        });
       } else {
         setSubmissionStatus({
-          type: "error",
-          message: data.message || "Failed to book appointment. Please try again.",
+          status: "error",
+          message: data.message || "Unable to process your request. Please try again.",
         });
       }
     } catch (error) {
       setSubmissionStatus({
-        type: "error",
+        status: "error",
         message: "Unable to connect to the server. Please check your connection and try again.",
       });
     } finally {
@@ -249,18 +262,41 @@ export function AppointmentForm() {
       {submissionStatus && (
         <div
           className={cn(
-            "flex items-start gap-3 p-4 rounded-lg",
-            submissionStatus.type === "success"
+            "flex flex-col gap-3 p-4 rounded-lg",
+            submissionStatus.status === "success"
               ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+              : submissionStatus.status === "conflict"
+              ? "bg-amber-50 text-amber-800 border border-amber-200"
               : "bg-red-50 text-red-800 border border-red-200"
           )}
         >
-          {submissionStatus.type === "success" ? (
-            <CheckCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
-          ) : (
-            <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
-          )}
-          <p className="text-sm">{submissionStatus.message}</p>
+          <div className="flex items-start gap-3">
+            {submissionStatus.status === "success" ? (
+              <CheckCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+            ) : (
+              <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+            )}
+            <div className="flex-1">
+              <p className="text-sm font-medium">{submissionStatus.message}</p>
+              {submissionStatus.status === "success" && submissionStatus.appointment_id && (
+                <div className="mt-2 text-sm space-y-1">
+                  <p><span className="font-medium">Appointment ID:</span> {submissionStatus.appointment_id}</p>
+                  <p><span className="font-medium">Date:</span> {submissionStatus.date}</p>
+                  <p><span className="font-medium">Time:</span> {submissionStatus.slot}</p>
+                </div>
+              )}
+              {submissionStatus.status === "conflict" && submissionStatus.suggested_slots && submissionStatus.suggested_slots.length > 0 && (
+                <div className="mt-2 text-sm">
+                  <p className="font-medium">Available slots:</p>
+                  <ul className="mt-1 list-disc list-inside">
+                    {submissionStatus.suggested_slots.map((slot) => (
+                      <li key={slot}>{slot}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </form>
