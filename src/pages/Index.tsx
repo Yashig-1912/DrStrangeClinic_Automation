@@ -1,8 +1,10 @@
 import { AppointmentForm } from "@/components/AppointmentForm";
-import { Stethoscope, MessageCircle, Copy, Check } from "lucide-react";
+import { Stethoscope, MessageCircle, Copy, Check, ChevronDown, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import n8nWorkflow from "@/assets/n8n-workflow.png";
 
 const Index = () => {
   const [copied, setCopied] = useState(false);
@@ -103,6 +105,42 @@ const Index = () => {
               </Button>
             </div>
           </div>
+
+          {/* How This Works Section */}
+          <Collapsible className="mt-8">
+            <CollapsibleTrigger className="w-full group">
+              <div className="flex items-center justify-center gap-2 py-3 px-4 bg-muted/50 hover:bg-muted rounded-lg transition-colors cursor-pointer">
+                <span className="text-sm font-medium text-foreground">How this works?</span>
+                <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
+              </div>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+              <div className="mt-4 p-4 bg-card rounded-xl border border-border">
+                <div className="rounded-lg overflow-hidden border border-border">
+                  <img 
+                    src={n8nWorkflow} 
+                    alt="n8n workflow automation" 
+                    className="w-full h-auto"
+                  />
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground text-center">
+                  Backend automation built with n8n and AI workflows
+                </p>
+                <div className="mt-4 flex justify-center">
+                  <Button asChild variant="outline" size="sm" className="gap-2">
+                    <a
+                      href="https://github.com/Yashig-1912/DrStrangeClinic_Automation"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github className="h-4 w-4" />
+                      View on GitHub
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </main>
     </div>
