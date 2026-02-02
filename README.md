@@ -1,73 +1,83 @@
-# Welcome to your Lovable project
+# 🤖 AI Appointment Automation System (n8n)
 
-## Project info
+An intelligent multi-channel appointment scheduling system built with **n8n** for a physiotherapy clinic.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+The backend automates patient management, calendar availability, booking logic, and confirmation workflows, while supporting both:
 
-## How can I edit this code?
+• Telegram chatbot interactions
+• Web frontend bookings via webhook (Lovable UI)
 
-There are several ways of editing your application.
+All logic runs through a single AI-driven workflow.
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## ⚙️ Core Backend Workflow (n8n)
 
-Changes made via Lovable will be committed automatically to this repo.
+The n8n automation handles:
 
-**Use your preferred IDE**
+* AI-based request interpretation
+* Patient lookup and creation in Google Sheets
+* Real-time slot validation using Google Calendar
+* Conflict detection and alternate slot suggestions
+* Appointment event creation
+* Email confirmations via Gmail
+* Multi-trigger routing (Telegram + Webhook)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+The system is designed as a unified backend brain with multiple input/output channels.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 🧩 Integrations
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+* n8n Automation Engine
+* OpenAI AI Agent
+* Google Calendar (availability & booking)
+* Google Sheets (patient + appointment database)
+* Gmail (confirmation emails)
+* Telegram Bot API
+* Lovable Frontend (web booking interface)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## ⏱️ Scheduling Logic
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+* Monday to Friday bookings only
+* Working hours: 9 AM – 5 PM
+* Lunch break exclusion (1 PM – 2 PM)
+* 30-minute appointments
+* 30-minute buffer between sessions
+* No overlapping bookings
+* Public holidays blocked via calendar
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🎯 Design Approach
 
-**Use GitHub Codespaces**
+* Single intelligent workflow
+* Multi-channel input handling
+* AI-driven automation with strict calendar control
+* Stateless webhook processing + conversational Telegram flow
+* Backend-first architecture
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🌐 Frontend
 
-This project is built with:
+A lightweight booking interface built with **Lovable** connects to the n8n webhook for structured appointment requests.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+(Frontend link included in project)
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## 📌 Why This Project
 
-## Can I connect a custom domain to my Lovable project?
+This project demonstrates real-world workflow automation, backend system design, and AI-driven scheduling using n8n.
 
-Yes, you can!
+It focuses on:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+• orchestration over UI
+• system reliability
+• automation logic
+• real service integrations
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
